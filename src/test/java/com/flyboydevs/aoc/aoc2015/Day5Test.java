@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.flyboydevs.aoc.TestHelperUtils.readFileIntoList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Day5Test {
@@ -41,15 +42,13 @@ class Day5Test {
         assertTrue(cut.hasNaughtyCharacterSets("haegwjzuvuyypxyu"));
         assertFalse(cut.has3vowels("dvszwmarrgswjxmb"));
 
-        cut.findNiceStrings(Arrays.asList("abcccdefe"));
+        cut.findNiceStrings(Collections.singletonList("abcccdefe"));
 
-        assertEquals(1, cut.findNiceStrings(Arrays.asList("ugknbfddgicrmopn")));
-        assertEquals(1, cut.findNiceStrings(Arrays.asList("aaa")));
-        assertEquals(0, cut.findNiceStrings(Arrays.asList("jchzalrnumimnmhp")));
-        assertEquals(0, cut.findNiceStrings(Arrays.asList("haegwjzuvuyypxyu")));
-        assertEquals(0, cut.findNiceStrings(Arrays.asList("dvszwmarrgswjxmb")));
-
-
+        assertEquals(1, cut.findNiceStrings(Collections.singletonList("ugknbfddgicrmopn")));
+        assertEquals(1, cut.findNiceStrings(Collections.singletonList("aaa")));
+        assertEquals(0, cut.findNiceStrings(Collections.singletonList("jchzalrnumimnmhp")));
+        assertEquals(0, cut.findNiceStrings(Collections.singletonList("haegwjzuvuyypxyu")));
+        assertEquals(0, cut.findNiceStrings(Collections.singletonList("dvszwmarrgswjxmb")));
 
         assertEquals(0, cut.findNiceStrings(
                 Arrays.asList("dvszwmarrgswjxmb",
@@ -63,21 +62,42 @@ class Day5Test {
 
     @Test
     void findNiceStrings_givenAOCData_expectResults() {
-        String path = "src/test/resources/aoc2015day3";
-        final List<String> naughtyNiceList = readFileIntoList(path);
+        final List<String> naughtyNiceList = readFileIntoList( "src/test/resources/aoc2015day5");
         long i = cut.findNiceStrings(naughtyNiceList);
         System.out.println(i);
         // once answered correctly add check to avoid breaking later
-        assertEquals(2639, cut.findNiceStrings(naughtyNiceList));
+        assertEquals(238, cut.findNiceStrings(naughtyNiceList));
     }
 
-    public static List<String> readFileIntoList(String file) {
-        List<String> lines = Collections.emptyList();
-        try {
-            lines = Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return lines;
+
+    @Test
+    void findNiceStringsPrt2_giveAOCExamples_expectAOCResults() {
+        assertTrue(cut.hasRepeatingPairOfCharacters("xyxy"));
+        assertTrue(cut.hasRepeatingPairOfCharacters("aabcdefgaa"));
+        assertFalse(cut.hasRepeatingPairOfCharacters("aaa"));
+
+        assertTrue(cut.has1CharacterBetweenPairs("xyx"));
+        assertTrue(cut.has1CharacterBetweenPairs("abcdefeghi"));
+        assertTrue(cut.has1CharacterBetweenPairs("aaa"));
+
+        assertTrue(cut.hasRepeatingPairOfCharacters("qjhvhtzxzqqjkmpb") && cut.has1CharacterBetweenPairs("qjhvhtzxzqqjkmpb"));
+        assertTrue(cut.hasRepeatingPairOfCharacters("xxyxx") && cut.has1CharacterBetweenPairs("xxyxx"));
+        assertFalse(cut.hasRepeatingPairOfCharacters("uurcxstgmygtbstg") && cut.has1CharacterBetweenPairs("uurcxstgmygtbstg"));
+        assertFalse(cut.hasRepeatingPairOfCharacters("ieodomkazucvgmuy") && cut.has1CharacterBetweenPairs("ieodomkazucvgmuy"));
+
+        assertEquals(1, cut.findNiceStringsPart2(Arrays.asList("qjhvhtzxzqqjkmpb")));
+        assertEquals(1, cut.findNiceStringsPart2(Arrays.asList("xxyxx")));
+        assertEquals(0, cut.findNiceStringsPart2(Arrays.asList("uurcxstgmygtbstg")));
+        assertEquals(0, cut.findNiceStringsPart2(Arrays.asList("ieodomkazucvgmuy")));
+    }
+
+    @Test
+    void findNiceStringsPrt2_givenAOCData_expectResults() {
+        String path = "src/test/resources/aoc2015day5";
+        final List<String> naughtyNiceList = readFileIntoList(path);
+        long i = cut.findNiceStringsPart2(naughtyNiceList);
+        System.out.println(i);
+        // once answered correctly add check to avoid breaking later
+        assertEquals(69, cut.findNiceStringsPart2(naughtyNiceList));
     }
 }

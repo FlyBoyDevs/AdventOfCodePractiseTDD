@@ -7,13 +7,19 @@ public class Day5 {
 
     public long findNiceStrings(List<String> listOfStrings){
 
-        final long count = listOfStrings.stream()
+        return listOfStrings.stream()
                 .filter(this::has3vowels)
                 .filter(this::hasRepeatingCharacters)
                 .filter(s -> !hasNaughtyCharacterSets(s))
                 .count();
+    }
 
-        return count;
+    public long findNiceStringsPart2(List<String> listOfStrings){
+
+        return listOfStrings.stream()
+                .filter(this::hasRepeatingPairOfCharacters)
+                .filter(this::has1CharacterBetweenPairs)
+                .count();
     }
 
     boolean has3vowels(String testString){
@@ -30,6 +36,19 @@ public class Day5 {
 
     boolean hasNaughtyCharacterSets(String testString){
         return Pattern.compile("ab|cd|pq|xy")
+                .matcher(testString)
+                .find();
+    }
+
+    boolean hasRepeatingPairOfCharacters(String testString){
+        return Pattern.compile("(..).*\\1")
+                .matcher(testString)
+                .find();
+
+    }
+
+    boolean has1CharacterBetweenPairs(String testString){
+        return Pattern.compile("(.).\\1")
                 .matcher(testString)
                 .find();
     }

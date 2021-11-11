@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.flyboydevs.aoc.TestHelperUtils.readFileIntoList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -74,23 +75,12 @@ class Day2Test {
 
     @Test
     void howMuchWrappingPaperNeedFor_giveAOCData_expectResult() {
-        String path = "src/test/resources/aoc2015day2";
-        List<String> allPresents = readFileIntoList(path);
+        final List<String> allPresents = readFileIntoList("src/test/resources/aoc2015day2");
         System.out.println(totalSquareFeetOfWrapping(allPresents));
     }
 
     long totalSquareFeetOfWrapping(List<String> presentList) {
         return presentList.stream().mapToLong(dims -> sut.howMuchWrappingPaperNeedFor(dims)).sum();
-    }
-
-    public static List<String> readFileIntoList(String file) {
-        List<String> lines = Collections.emptyList();
-        try {
-            lines = Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return lines;
     }
 
     @Test
@@ -104,8 +94,7 @@ class Day2Test {
 
     @Test
     void howMuchRibbonNeededFor_givenAOC_expectResult() {
-        String path = "src/test/resources/aoc2015day2";
-        List<String> allPresents = readFileIntoList(path);
+        final List<String> allPresents = readFileIntoList("src/test/resources/aoc2015day2");
         long sum = allPresents.stream().mapToLong(line -> sut.howMuchRibbonNeededFor(line)).sum();
         System.out.println(sum);
     }

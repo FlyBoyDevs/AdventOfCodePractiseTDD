@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
+import static com.flyboydevs.aoc.TestHelperUtils.readFileIntoList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Day3Test {
@@ -30,8 +31,7 @@ class Day3Test {
 
     @Test
     void countHomesVisited_givenAOCData_expectResults() {
-        String path = "src/test/resources/aoc2015day3";
-        final List<String> instructions = readFileIntoList(path);
+        final List<String> instructions = readFileIntoList( "src/test/resources/aoc2015day3");
         final int i = cut.countHomesVisited(instructions.get(0));
         System.out.println(i);
         // once answered correctly add check to avoid breaking later
@@ -46,22 +46,11 @@ class Day3Test {
     }
     @Test
     void countHomesVisitedWithRobot_givenAOCData_expectResults() {
-        String path = "src/test/resources/aoc2015day3";
-        final List<String> instructions = readFileIntoList(path);
+        final List<String> instructions = readFileIntoList( "src/test/resources/aoc2015day3");
         final int i = cut.countHomesVisitedWithRobot(instructions.get(0));
         System.out.println(i);
         // once answered correctly add check to avoid breaking later
         assertEquals(2639, cut.countHomesVisitedWithRobot(instructions.get(0)));
     }
 
-
-    public static List<String> readFileIntoList(String file) {
-        List<String> lines = Collections.emptyList();
-        try {
-            lines = Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return lines;
-    }
 }
